@@ -2,3 +2,18 @@
 en:
   label_test_plan_plural: Test plans
   redmine_test_plan: Test plans
+  functional_test: Test fonctionnel
+  test_in_ff: Test Firefox
+  test_in_ch: Test Chrome
+  test_in_ie: Test IE
+  test_in_sf: Test Safari
+  test_in_mobile: Simulateur Navigateur
+  test_in_real_device: Device reel
+  raspberry: Raspberry
+  vega: Vega
+  thomson: Thomson
+  android: Android
+  ready_for_demo: Prêt pour demo
+  url: Url
+  internal_control: Contrôle interne
+  client_note: Note client

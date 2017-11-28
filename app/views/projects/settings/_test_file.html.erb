@@ -1,0 +1,8 @@
+<% columns = ActiveFilePlanColumn::ALL_COLUMNS %>
+<% @active_columns = ActiveFilePlanColumn.active_columns(@project) %>
+<%= form_tag update_active_columns_project_file_test_index_path(@project) do %>
+  <% columns.each do |column| %>
+    <%= check_box_tag(column, column, @active_columns.include?(column)  ) %> <%= l(column) %> <br/>
+  <% end %>
+    <%= submit_tag :save %>
+<% end %>

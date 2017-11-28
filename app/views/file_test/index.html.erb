@@ -27,40 +27,40 @@
     background-color: #8b0000;
   }
 </style>
-
+<div id="last_update" >
+  Last update: <%= @last_update %>
+</div>
 <div class="autoscroll">
   <table class="list issues odd-even" >
     <thead>
     <tr>
       <th style="min-width: 125px;">Issue</th>
-      <th>URL</th>
-      <th>Test fonctionnel</th>
-      <th>Test FireFox</th>
-      <th>Test Chrome</th>
-      <th>Test IE</th>
-      <th>Test Safari</th>
-      <th>Simulateur Navigateur</th>
-      <th>Device reel</th>
-      <th>Contrôle interne</th>
-      <th>Note Client</th>
+      <% columns = ActiveFilePlanColumn::ALL_COLUMNS %>
+      <% columns.each do |column| %>
+          <% if @active_columns.include?(column) %>
+              <th><%= l(column) %></th>
+          <% end %>
+      <% end %>
     </tr>
     </thead>
-
     <tbody>
     <% @issues.each do |issue| %>
         <% plan = issue.test_plan || TestPlan.new(issue_id: issue.id) %>
         <tr class="issue_test_plan <%= cycle('odd', 'even') %>"  data-issueid="<%= issue.id %>">
           <td><%= link_to_issue issue %></td>
-          <td><%= text_field_tag :url, plan.url %></td>
-          <td class="test_result_<%= plan.functional_test %> functional_test"><%= select_tag(:functional_test, options_for_select(TestPlan::STATUS, selected: plan.functional_test), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_ff %> test_in_ff"><%= select_tag(:test_in_ff, options_for_select(TestPlan::STATUS, selected: plan.test_in_ff), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_ch %> test_in_ch"><%= select_tag(:test_in_ch, options_for_select(TestPlan::STATUS, selected: plan.test_in_ch), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_ie %> test_in_ie"><%= select_tag(:test_in_ie, options_for_select(TestPlan::STATUS, selected: plan.test_in_ie), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_sf %> test_in_sf"><%= select_tag(:test_in_sf, options_for_select(TestPlan::STATUS, selected: plan.test_in_sf), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_mobile %> test_in_mobile"><%= select_tag(:test_in_mobile, options_for_select(TestPlan::STATUS, selected: plan.test_in_mobile), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.test_in_real_device %> test_in_real_device"><%= select_tag(:test_in_real_device, options_for_select(TestPlan::STATUS, selected: plan.test_in_real_device), {include_blank: true}) %></td>
-          <td class="test_result_<%= plan.internal_control %> internal_control"><%= select_tag(:internal_control, options_for_select(TestPlan::STATUS, selected: plan.internal_control), {include_blank: true}) %></td>
-          <td><%= text_field_tag :client_note, plan.client_note %></td>
+          <% columns.each do |column| %>
+              <% if @active_columns.include?(column) %>
+                  <% if column.in?(['url', 'client_note']) %>
+                      <td>
+                        <%= text_field_tag column, plan.send(column) %>
+                      </td>
+                  <% else %>
+                      <td class="test_result_<%= plan.send(column) %> <%= column %>">
+                        <%= select_tag(column, options_for_select(TestPlan::STATUS, selected: plan.send(column)), {include_blank: true}) %>
+                      </td>
+                  <% end %>
+              <% end %>
+          <% end %>
         </tr>
     <% end %>
     </tbody>
@@ -75,11 +75,11 @@
       value = $(this).val();
       $.getScript('<%= create_or_update_project_file_test_index_path(@project, format: :js) %>'+ '?issue_id='+issue+ "&type=" +type+ "&value="+ value);
     })
-   $('.issue_test_plan').find('input').on('change', function(e){
-     issue = $(this).parents('.issue_test_plan').data('issueid');
-     type = $(this).attr('id');
-     value = $(this).val();
-     $.getScript('<%= create_or_update_project_file_test_index_path(@project, format: :js) %>'+ '?issue_id='+issue+ "&type=" +type+ "&value="+ value);
+    $('.issue_test_plan').find('input').on('change', function(e){
+      issue = $(this).parents('.issue_test_plan').data('issueid');
+      type = $(this).attr('id');
+      value = $(this).val();
+      $.getScript('<%= create_or_update_project_file_test_index_path(@project, format: :js) %>'+ '?issue_id='+issue+ "&type=" +type+ "&value="+ value);
     })
   })
 </script>

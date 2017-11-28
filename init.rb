@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_frenchco_file_test do
   name 'Redmine Frenchco File Test plugin'
   author 'Bilel kedidi'
   description 'This is a plugin for Redmine'
-  version '0.0.1'
+  version '0.1.0'
   url 'https://www.github.com/bilel-kedidi/redmine_frenchco_file_test'
   author_url 'https://www.github.com/bilel-kedidi'
 
@@ -19,5 +19,6 @@ Redmine::Plugin.register :redmine_frenchco_file_test do
 
   Rails.application.config.to_prepare do
     Issue.send(:include, RedmineTestPlan::IssuePatch)
+    ProjectsHelper.send(:include, RedmineTestPlan::ProjectsHelperPatch)
   end
 end

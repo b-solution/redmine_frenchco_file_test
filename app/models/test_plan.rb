@@ -10,6 +10,11 @@ class TestPlan < ActiveRecord::Base
                   'test_in_sf',
                   'test_in_mobile',
                   'test_in_real_device',
+                  'raspberry',
+                  'vega',
+                  'thomson',
+                  'android',
+                  'ready_for_demo',
                   'url',
                   'internal_control',
                   'client_note'
