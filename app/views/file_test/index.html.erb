@@ -35,6 +35,7 @@
     <thead>
     <tr>
       <th style="min-width: 125px;">Issue</th>
+      <th style="min-width: 125px;">Assigné</th>
       <% columns = ActiveFilePlanColumn::ALL_COLUMNS %>
       <% columns.each do |column| %>
           <% if @active_columns.include?(column) %>
@@ -48,6 +49,7 @@
         <% plan = issue.test_plan || TestPlan.new(issue_id: issue.id) %>
         <tr class="issue_test_plan <%= cycle('odd', 'even') %>"  data-issueid="<%= issue.id %>">
           <td><%= link_to_issue issue %></td>
+          <td><%= link_to_user issue.assigned_to %></td>
           <% columns.each do |column| %>
               <% if @active_columns.include?(column) %>
                   <% if column.in?(['url', 'client_note']) %>
