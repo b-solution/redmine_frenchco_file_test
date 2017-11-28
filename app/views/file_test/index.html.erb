@@ -58,7 +58,7 @@
           <td class="test_result_<%= plan.test_in_mobile %> test_in_mobile"><%= select_tag(:test_in_mobile, options_for_select(TestPlan::STATUS, selected: plan.test_in_mobile), {include_blank: true}) %></td>
           <td class="test_result_<%= plan.test_in_real_device %> test_in_real_device"><%= select_tag(:test_in_real_device, options_for_select(TestPlan::STATUS, selected: plan.test_in_real_device), {include_blank: true}) %></td>
           <td class="test_result_<%= plan.internal_control %> internal_control"><%= select_tag(:internal_control, options_for_select(TestPlan::STATUS, selected: plan.internal_control), {include_blank: true}) %></td>
-          <td><%= text_field_tag :client_note, plan.url %></td>
+          <td><%= text_field_tag :client_note, plan.client_note %></td>
         </tr>
     <% end %>
     </tbody>
