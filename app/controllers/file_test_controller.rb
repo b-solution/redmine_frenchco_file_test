@@ -6,7 +6,7 @@ class FileTestController < ApplicationController
   before_filter :authorize
 
   def index
-    @issues = @project.issues.order('issues.id ASC').
+    @issues = @project.issues.order('issues.id DESC').
         where(status_id: IssueStatus.where.not(is_closed: true).pluck(:id) ).
         includes(:test_plan).references(:test_plan)
   end
