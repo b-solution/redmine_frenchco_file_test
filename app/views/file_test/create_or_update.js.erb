@@ -1,0 +1,8 @@
+<% unless @type.in?(['url', 'client_note']) %>
+a = $(".issue_test_plan[data-issueid='" + <%= @issue.id %> + "']").find('.<%= @type %>')
+a.removeClass("test_result_0");
+a.removeClass("test_result_1");
+a.removeClass("test_result_2");
+a.removeClass("test_result_3");
+a.addClass("test_result_<%= @value %>");
+<% end  %>
