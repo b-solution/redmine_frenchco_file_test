@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_frenchco_file_test do
   name 'Redmine Frenchco File Test plugin'
   author 'Bilel kedidi'
   description 'This is a plugin for Redmine'
-  version '0.1.0'
+  version '0.1.1'
   url 'https://www.github.com/bilel-kedidi/redmine_frenchco_file_test'
   author_url 'https://www.github.com/bilel-kedidi'
 
