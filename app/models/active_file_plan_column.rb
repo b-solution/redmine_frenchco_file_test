@@ -11,7 +11,8 @@ class ActiveFilePlanColumn < ActiveRecord::Base
       internal_control
       client_note)
 
-  ALL_COLUMNS = ['functional_test',
+  ALL_COLUMNS = ['url',
+                 'functional_test',
                  'test_in_ff',
                  'test_in_ch',
                  'test_in_ie',
@@ -23,7 +24,6 @@ class ActiveFilePlanColumn < ActiveRecord::Base
                  'thomson',
                  'android',
                  'ready_for_demo',
-                 'url',
                  'internal_control',
                  'client_note']
 
