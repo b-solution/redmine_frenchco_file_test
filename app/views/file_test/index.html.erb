@@ -48,7 +48,7 @@
     <% @issues.each do |issue| %>
         <% plan = issue.test_plan || TestPlan.new(issue_id: issue.id) %>
         <tr class="issue_test_plan <%= cycle('odd', 'even') %>"  data-issueid="<%= issue.id %>">
-          <td><%= link_to_issue issue %></td>
+          <td><%= "[#{issue.status}]" %> <%=link_to_issue issue %></td>
           <td><%= link_to_user issue.assigned_to %></td>
           <% columns.each do |column| %>
               <% if @active_columns.include?(column) %>
