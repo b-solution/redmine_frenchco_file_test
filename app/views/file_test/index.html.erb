@@ -30,6 +30,9 @@
 <div id="last_update" >
   Last update: <%= @last_update %>
 </div>
+<div id="filter" >
+ <%= select_tag(:status, options_for_select(IssueStatus.pluck(:name, :id)), include_blank: true) %>
+</div>
 <div class="autoscroll">
   <table class="list issues odd-even" >
     <thead>
@@ -47,7 +50,7 @@
     <tbody>
     <% @issues.each do |issue| %>
         <% plan = issue.test_plan || TestPlan.new(issue_id: issue.id) %>
-        <tr class="issue_test_plan <%= cycle('odd', 'even') %>"  data-issueid="<%= issue.id %>">
+        <tr class="issue_test_plan <%= cycle('odd', 'even') %> issue_status_<%= issue.status_id %>"   data-issueid="<%= issue.id %>">
           <td><%= "[#{issue.status}]" %> <%=link_to_issue issue %></td>
           <td><%= link_to_user issue.assigned_to %></td>
           <% columns.each do |column| %>
@@ -71,6 +74,11 @@
 
 <script>
   $(document).ready(function(){
+      $('#status').on('change', function(){
+          val = $(this).val();
+          $('.issue_test_plan').hide()
+          $('.issue_status_'+ val).show()
+      })
     $('.issue_test_plan').find('select').on('change', function(e){
       issue = $(this).parents('.issue_test_plan').data('issueid');
       type = $(this).attr('id');
